@@ -29,6 +29,7 @@ public interface CacheInterface {
      * @return a entry instance
      */
     Entry get(Long key);
+    void delete(Long key);
 
     /**
      * Retrieve all entries

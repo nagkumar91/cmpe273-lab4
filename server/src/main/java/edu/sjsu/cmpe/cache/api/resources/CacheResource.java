@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
 
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
@@ -31,6 +32,14 @@ public class CacheResource {
      */
     public CacheResource(CacheInterface cache) {
         this.cache = cache;
+    }
+
+    @DELETE
+    @Path("{key}")
+    @Timed(name = "del-entry")
+    public Response delete(@PathParam("key") LongParam key) {
+        cache.delete(key.get());
+        return Response.status(204).build();
     }
 
     @GET
